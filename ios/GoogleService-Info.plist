@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>855212184503-94dvgvfgqbvr4ca5jrcf9r80v1a25ilj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.855212184503-94dvgvfgqbvr4ca5jrcf9r80v1a25ilj</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>855212184503-2d2q9fgiqkcm3hmurkl78bmk4lr7v37f.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD6_jZqBZnRLP3aq6Bo6HFJfyheTmNJQoU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>855212184503</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.obs.juststudent</string>
+	<key>PROJECT_ID</key>
+	<string>just-students-1645529618285</string>
+	<key>STORAGE_BUCKET</key>
+	<string>just-students-1645529618285.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:855212184503:ios:3b5f142b62d5248c368e32</string>
+</dict>
+</plist>

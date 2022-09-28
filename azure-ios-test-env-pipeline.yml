@@ -1,0 +1,81 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+# ReactNative Pipeline Setup
+trigger:
+- master
+- releases/*
+
+pool:
+  vmImage: 'macos-latest'
+
+name: $(date:yyyy).$(Month)$(rev:.r)
+
+steps:
+- script: npm install
+  displayName: Install npm packages
+
+
+#RUN TESTING
+- task: Bash@3
+  displayName: setup testing environment
+  continueOnError: true
+  inputs:
+    filePath: 'setup_env.sh'
+    arguments: 'testing'
+
+- task: InstallAppleCertificate@2
+  inputs:
+    certSecureFile: 'DistriputionCertificate.p12'
+    certPwd: 'optisol@123'
+    keychain: 'temp'
+
+- task: InstallAppleProvisioningProfile@1
+  inputs:
+    provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'Just_Student_Distribution_Profile.mobileprovision'
+
+- task: CocoaPods@0
+  inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/ios'
+    forceRepoUpdate: false
+
+- task: Xcode@5
+  timeoutInMinutes: 100
+  inputs:
+    actions: 'build'
+    scheme: 'JustStudents'
+    sdk: 'iphoneos'
+    configuration: 'Release'
+    xcWorkspacePath: 'ios/JustStudents.xcworkspace'
+    xcodeVersion: 'default'
+    signingOption: 'manual'
+    signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
+    provisioningProfileUuid: '$(APPLE_PROV_PROFILE_UUID)'
+    packageApp: true
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.ipa'
+    targetFolder: '$(build.artifactStagingDirectory)'
+    overWrite: true
+    flattenFolders: true
+    
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'jsapp-ios-testing-build'
+    publishLocation: 'Container'
+
+- task: Bash@3
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/releasenotes.sh'
+
+- task: PublishBuildArtifacts@1
+  displayName: copy release notes
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/release-notes'
+    ArtifactName: 'jsapp-release-notes'
+    publishLocation: 'Container'

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "855212184503",
+    "project_id": "just-students-1645529618285",
+    "storage_bucket": "just-students-1645529618285.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855212184503:android:872d782f77e02f09368e32",
+        "android_client_info": {
+          "package_name": "com.juststudents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855212184503-2d2q9fgiqkcm3hmurkl78bmk4lr7v37f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juststudents",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "855212184503-24u4ihapl00nojlr1rai6cvg51id8rf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDitUpGtXAMgYq5a3W4_v4Hws3SJimbGs4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855212184503-24u4ihapl00nojlr1rai6cvg51id8rf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

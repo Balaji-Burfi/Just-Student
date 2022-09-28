@@ -1,0 +1,104 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+# ReactNative Pipeline Setup
+trigger:
+- master
+- releases/*
+
+pool:
+  vmImage: 'macos-latest'
+
+name: $(date:yyyy).$(Month)$(rev:.r)
+
+steps:
+- script: npm install
+  displayName: Install npm packages
+
+# #CI Process
+# - script: npm run test
+#   displayName: Run test case
+
+#RUN TESTING
+- task: Bash@3
+  displayName: setup testing environment
+  continueOnError: true
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/setup_env.sh'
+    arguments: 'testing'
+
+#CD Process
+- task: Gradle@2
+  displayName: Clean android build
+  inputs:
+    gradleWrapperFile: 'android/gradlew'
+    workingDirectory: 'android/'
+    tasks: 'clean'
+    publishJUnitResults: false
+    gradleOptions: '-Xmx3072m'
+
+- task: Gradle@2
+  displayName: Generate APK
+  inputs:
+    gradleWrapperFile: 'android/gradlew'
+    workingDirectory: 'android/'
+    options: '-PversionName=$(Build.BuildNumber) -PversionCode=$(Build.BuildId)'
+    tasks: 'assembleRelease'
+    publishJUnitResults: false
+    gradleOptions: '-Xmx3072m'
+
+- task: PublishBuildArtifacts@1
+  displayName: copy APK
+  inputs:
+    PathtoPublish: 'android/app/build/outputs/apk/release'
+    ArtifactName: 'jsapp-testing-build'
+    publishLocation: 'Container'
+
+
+#RUN STAGING
+- task: Bash@3
+  displayName: setup staging environment
+  continueOnError: true
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/setup_env.sh'
+    arguments: 'staging'
+
+#CD Process
+- task: Gradle@2
+  displayName: Clean android build
+  inputs:
+    gradleWrapperFile: 'android/gradlew'
+    workingDirectory: 'android/'
+    tasks: 'clean'
+    publishJUnitResults: false
+    gradleOptions: '-Xmx3072m'
+
+- task: Gradle@2
+  displayName: Generate APK
+  inputs:
+    gradleWrapperFile: 'android/gradlew'
+    workingDirectory: 'android/'
+    options: '-PversionName=$(Build.BuildNumber) -PversionCode=$(Build.BuildId)'
+    tasks: 'assembleRelease'
+    publishJUnitResults: false
+    gradleOptions: '-Xmx3072m'
+
+- task: PublishBuildArtifacts@1
+  displayName: copy APK
+  inputs:
+    PathtoPublish: 'android/app/build/outputs/apk/release'
+    ArtifactName: 'jsapp-staging-build'
+    publishLocation: 'Container'
+
+- task: Bash@3
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/releasenotes.sh'
+
+- task: PublishBuildArtifacts@1
+  displayName: copy release notes
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/release-notes'
+    ArtifactName: 'jsapp-release-notes'
+    publishLocation: 'Container'

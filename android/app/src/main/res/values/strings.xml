@@ -1,0 +1,7 @@
+<resources>
+    <string name="facebook_app_id">322822036408982</string>
+    <string name="app_name">JustStudents</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">FCaKwSbZjRsdQgbjBVOrLLsLiiYqLkFmBGUqk</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+</resources>

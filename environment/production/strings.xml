@@ -1,0 +1,5 @@
+<resources>
+    <string name="facebook_app_id">322822036408982</string>
+    <string name="app_name">JustStudents-Staging</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">DeploymentKey</string>
+</resources>
